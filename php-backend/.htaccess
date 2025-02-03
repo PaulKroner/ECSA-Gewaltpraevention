@@ -2,7 +2,7 @@
 
 <IfModule mod_headers.c>
   Header Set Access-Control-Allow-Origin "http://localhost:3000"
-  Header Set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+  Header Set Access-Control-Allow-Methods "GET, POST, OPTIONS, DELETE"
   Header Set Access-Control-Allow-Headers "Content-Type, Authorization"
   Header Set Access-Control-Allow-Credentials "true"
 </IfModule>
