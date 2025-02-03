@@ -1,0 +1,9 @@
+-- INSERT INTO users (id, email, password, name, vorname, role_id) 
+-- VALUES 
+-- (2, 'admin@mail.de', '$2y$10$9sF0.8jQ5W/tRbDXQy6h6uGpI3.O0EkzBz9Nv.uWbE0ORxvJlvT8q', 'Kröner', 'Paul', 1)
+-- ON DUPLICATE KEY UPDATE 
+--     email = VALUES(email), 
+--     password = VALUES(password), 
+--     name = VALUES(name), 
+--     vorname = VALUES(vorname), 
+--     role_id = VALUES(role_id);
