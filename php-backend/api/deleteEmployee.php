@@ -14,9 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 
     try {
-        // Datenbankverbindung (PDO)
-        $pdo = new PDO("mysql:host=localhost;dbname=deineDatenbank", "username", "password");
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Debugging: Überprüfen, ob die ID korrekt empfangen wird
+        error_log("Deleting employee with ID: " . $id);
 
         // SQL-Abfrage vorbereiten
         $sql = "DELETE FROM employees WHERE id = :id";
