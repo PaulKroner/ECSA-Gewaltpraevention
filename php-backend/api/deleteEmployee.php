@@ -1,11 +1,16 @@
 <?php
 require_once "config.php"; // Verbindung zur Datenbank einbinden
+// Handle preflight (OPTIONS request)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+  http_response_code(200);
+  exit;
+}
 
 // DELETE-Anfrage für den Mitarbeiter
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // Daten aus der URL holen (id)
     parse_str(file_get_contents("php://input"), $data);
-    $id = $data['id'] ?? null;
+    $id = $_GET['id'] ?? null;
 
     if (!$id) {
         echo json_encode(['error' => 'Fehlende ID']);
