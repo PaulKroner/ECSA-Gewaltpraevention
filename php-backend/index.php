@@ -1,4 +1,0 @@
-<?php
-// CORS Header setzen
-
-?>
