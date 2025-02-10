@@ -1,5 +1,10 @@
 <?php
-require_once "config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php"; // Verbindung zur Datenbank einbinden
+// OPTIONS-Preflight-Anfragen direkt beantworten
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+  http_response_code(200);
+  exit;
+}
 
 // Nur POST-Anfragen zulassen
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {

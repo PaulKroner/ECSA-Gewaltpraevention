@@ -1,6 +1,11 @@
 <?php
-require_once "config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php"; // Verbindung zur Datenbank einbinden
 
+// Handle preflight (OPTIONS request)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+  http_response_code(200);
+  exit;
+}
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);
   exit;

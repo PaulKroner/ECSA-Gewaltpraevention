@@ -1,5 +1,5 @@
 <?php
-require_once "config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php"; // Verbindung zur Datenbank einbinden
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);
@@ -29,7 +29,6 @@ try {
   //     }
   // }
 
-  // SQL-Abfrage vorbereiten
   // SQL-Abfrage vorbereiten
   // Überprüfen, ob das Datum gültig ist und entweder den Wert oder NULL setzen
   function convertToDate($date)

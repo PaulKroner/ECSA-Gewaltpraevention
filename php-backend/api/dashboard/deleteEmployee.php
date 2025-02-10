@@ -1,5 +1,5 @@
 <?php
-require_once "config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php"; // Verbindung zur Datenbank einbinden
 // Handle preflight (OPTIONS request)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
   http_response_code(200);
@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
     try {
         // Debugging: Überprüfen, ob die ID korrekt empfangen wird
-        error_log("Deleting User with ID: " . $id);
+        error_log("Deleting employee with ID: " . $id);
 
         // SQL-Abfrage vorbereiten
-        $sql = "DELETE FROM users WHERE id = :id";
+        $sql = "DELETE FROM employees WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
         // Erfolgreiches Löschen prüfen
         if ($stmt->rowCount() > 0) {
-            echo json_encode(['message' => 'User erfolgreich gelöscht']);
+            echo json_encode(['message' => 'Mitarbeiter erfolgreich gelöscht']);
         } else {
-            echo json_encode(['error' => 'User nicht gefunden']);
+            echo json_encode(['error' => 'Mitarbeiter nicht gefunden']);
             http_response_code(404); // Not Found
         }
     } catch (PDOException $e) {

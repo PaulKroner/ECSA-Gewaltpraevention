@@ -1,5 +1,5 @@
 <?php
-require_once "config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php"; // Verbindung zur Datenbank einbinden
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);

@@ -1,6 +1,6 @@
 <?php
 // Einbinden der Konfigurationsdatei
-require_once 'config.php';
+require_once '../config.php';
 
 // SQL-Abfrage, um alle Benutzer aus der Tabelle 'employees' abzurufen
 try {

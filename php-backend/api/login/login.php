@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "../config.php";
 
 // OPTIONS-Requests direkt beantworten (CORS Preflight)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
