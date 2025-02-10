@@ -30,14 +30,22 @@ if (!$user || !password_verify($password, $user['password'])) {
     exit();
 }
 
-// Generate session token
-$sessionToken = bin2hex(random_bytes(32));
+// Set expiration time (2 days from now)
+$expirationTime = time() + (2 * 24 * 60 * 60); // 2 days in seconds
+
+// Generate session token with expiration time
+$tokenData = [
+  'token' => bin2hex(random_bytes(32)),
+  'exp' => $expirationTime
+];
+
 
 http_response_code(200);
 echo json_encode([
     "success" => true,
     "message" => "Login erfolgreich",
-    "token" => $sessionToken,  // store this in localStorage
+    "token" => $tokenData['token'],  // store this in localStorage or cookie
+    "exp" => $tokenData['exp'], // expiration time for client-side check
     "role_id" => $user['role_id'] // pass role_id separately
 ]);
 ?>
