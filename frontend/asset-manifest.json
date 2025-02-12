@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/gewaltpraevention-edv/frontend/static/css/main.fe9afe7c.css",
+    "main.js": "/gewaltpraevention-edv/frontend/static/js/main.831a6d2b.js",
+    "static/media/Ec11.svg.png": "/gewaltpraevention-edv/frontend/static/media/Ec11.svg.4d57dc052715d88f3650.png",
+    "index.html": "/gewaltpraevention-edv/frontend/index.html",
+    "main.fe9afe7c.css.map": "/gewaltpraevention-edv/frontend/static/css/main.fe9afe7c.css.map",
+    "main.831a6d2b.js.map": "/gewaltpraevention-edv/frontend/static/js/main.831a6d2b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fe9afe7c.css",
+    "static/js/main.831a6d2b.js"
+  ]
+}
