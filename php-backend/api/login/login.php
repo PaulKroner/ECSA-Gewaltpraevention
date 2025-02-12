@@ -1,5 +1,8 @@
 <?php
 require_once "../config.php";
+require_once "../../../vendor/autoload.php"; // Load installed packages
+
+use Firebase\JWT\JWT;
 
 // OPTIONS-Requests direkt beantworten (CORS Preflight)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -30,22 +33,18 @@ if (!$user || !password_verify($password, $user['password'])) {
     exit();
 }
 
-// Set expiration time (2 days from now)
-$expirationTime = time() + (2 * 24 * 60 * 60); // 2 days in seconds
+$secret_key = "your_secret_key"; // Replace with an actual secret key
 
-// Generate session token with expiration time
-$tokenData = [
-  'token' => bin2hex(random_bytes(32)),
-  'exp' => $expirationTime
+$payload = [
+    "id" => $user["id"],
+    "role_id" => $user["role_id"],
 ];
 
+$jwt = JWT::encode($payload, $secret_key, 'HS256');
 
 http_response_code(200);
 echo json_encode([
-    "success" => true,
     "message" => "Login erfolgreich",
-    "token" => $tokenData['token'],  // store this in localStorage or cookie
-    "exp" => $tokenData['exp'], // expiration time for client-side check
-    "role_id" => $user['role_id'] // pass role_id separately
+    "token" => $jwt // JWT contains (id, role_id, exp)
 ]);
 ?>
