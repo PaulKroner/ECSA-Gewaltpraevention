@@ -30,7 +30,7 @@ $vorname = trim($data["vorname"]);
 
 try {
     // Prüfen, ob die E-Mail bereits existiert
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT id FROM gp_users WHERE email = :email");
     $stmt->execute([":email" => $email]);
 
     if ($stmt->fetch()) {
@@ -42,7 +42,7 @@ try {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Nutzer in die Datenbank einfügen
-    $sql = "INSERT INTO users (email, password, role_id, name, vorname) 
+    $sql = "INSERT INTO gp_users (email, password, role_id, name, vorname) 
             VALUES (:email, :password, :role_id, :name, :vorname)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([

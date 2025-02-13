@@ -34,7 +34,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $expiryDate = date('Y-m-d H:i:s', strtotime('+15 minutes'));
 
     // Save the reset token and expiry date in the database
-    $updateQuery = "UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
+    $updateQuery = "UPDATE gp_users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
     $stmt = $pdo->prepare($updateQuery);
     $stmt->execute([$resetToken, $expiryDate, $email]);
 

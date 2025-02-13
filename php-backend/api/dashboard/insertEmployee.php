@@ -33,7 +33,7 @@ try {
   // }
 
   // SQL-Abfrage vorbereiten
-  $sql = "INSERT INTO employees (name, vorname, email, postadresse, fz_eingetragen, fz_abgelaufen, fz_kontrolliert, fz_kontrolliert_am, gs_eingetragen, gs_erneuert, gs_kontrolliert, us_eingetragen, us_abgelaufen, us_kontrolliert, sve_eingetragen, sve_kontrolliert, hauptamt)
+  $sql = "INSERT INTO gp_employees (name, vorname, email, postadresse, fz_eingetragen, fz_abgelaufen, fz_kontrolliert, fz_kontrolliert_am, gs_eingetragen, gs_erneuert, gs_kontrolliert, us_eingetragen, us_abgelaufen, us_kontrolliert, sve_eingetragen, sve_kontrolliert, hauptamt)
             VALUES (:name, :vorname, :email, :postadresse, :fz_eingetragen, :fz_abgelaufen, :fz_kontrolliert, :fz_kontrolliert_am, :gs_eingetragen, :gs_erneuert, :gs_kontrolliert, :us_eingetragen, :us_abgelaufen, :us_kontrolliert, :sve_eingetragen, :sve_kontrolliert, :hauptamt)";
 
   $stmt = $pdo->prepare($sql);

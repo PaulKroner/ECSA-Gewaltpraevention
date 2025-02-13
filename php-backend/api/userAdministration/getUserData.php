@@ -4,7 +4,7 @@ require_once '../config.php';
 
 // SQL-Abfrage, um alle User aus der Tabelle 'users' abzurufen
 try {
-  $stmt = $pdo->query("SELECT * FROM users");
+  $stmt = $pdo->query("SELECT * FROM gp_users");
   $rows = $stmt->fetchAll();
 
   // Ausgabe der Daten als JSON

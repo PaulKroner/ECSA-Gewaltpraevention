@@ -19,15 +19,6 @@ if (!isset($data["id"], $data["name"], $data["vorname"], $data["email"])) {
 $hauptamt = isset($data["hauptamt"]) && ($data["hauptamt"] === '1' || $data["hauptamt"] === true) ? 1 : 0;
 
 try {
-  // Datumskonvertierung (nur wenn die Felder existieren)
-  // $dates = ["fz_eingetragen", "fz_abgelaufen", "fz_kontrolliert_am", "gs_eingetragen", "gs_erneuert", "us_eingetragen", "us_abgelaufen", "sve_eingetragen"];
-  // foreach ($dates as $field) {
-  //     if (!empty($data[$field])) {
-  //         $data[$field] = date("Y-m-d", strtotime($data[$field])); // In MySQL-kompatibles Format umwandeln
-  //     } else {
-  //         $data[$field] = null; // NULL setzen, falls leer
-  //     }
-  // }
 
   // SQL-Abfrage vorbereiten
   // Überprüfen, ob das Datum gültig ist und entweder den Wert oder NULL setzen
@@ -37,7 +28,7 @@ try {
   }
 
   // SQL-Abfrage vorbereiten
-  $sql = "UPDATE employees SET 
+  $sql = "UPDATE gp_employees SET 
           name = :name, 
           vorname = :vorname, 
           email = :email, 

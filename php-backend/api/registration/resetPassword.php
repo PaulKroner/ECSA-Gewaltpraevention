@@ -14,7 +14,7 @@ if (empty($token) || empty($newPassword)) {
 }
 
 // Check if the token exists and is valid
-$query = "SELECT email, reset_token_expiry FROM users WHERE reset_token = ?";
+$query = "SELECT email, reset_token_expiry FROM gp_users WHERE reset_token = ?";
 $stmt = $pdo->prepare($query);
 $stmt->execute([$token]);
 $user = $stmt->fetch();
@@ -35,7 +35,7 @@ if ($user['reset_token_expiry'] < $currentDate) {
 $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
 
 // Update password and delete reset token
-$updateQuery = "UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE email = ?";
+$updateQuery = "UPDATE gp_users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE email = ?";
 $stmt = $pdo->prepare($updateQuery);
 $success = $stmt->execute([$hashedPassword, $user['email']]);
 

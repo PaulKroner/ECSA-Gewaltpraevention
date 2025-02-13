@@ -23,7 +23,7 @@ if (empty($email) || empty($password)) {
 }
 
 // Nutzer suchen
-$stmt = $pdo->prepare("SELECT id, email, role_id, password FROM users WHERE email = :email");
+$stmt = $pdo->prepare("SELECT id, email, role_id, password FROM gp_users WHERE email = :email");
 $stmt->execute(["email" => $email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

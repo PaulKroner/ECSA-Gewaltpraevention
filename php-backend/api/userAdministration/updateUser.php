@@ -17,7 +17,7 @@ if (!isset($data["id"], $data["name"], $data["vorname"], $data["email"], $data["
 
 try {
   // SQL-Abfrage vorbereiten
-  $sql = "UPDATE users SET 
+  $sql = "UPDATE gp_users SET 
           name = :name, 
           vorname = :vorname, 
           email = :email, 

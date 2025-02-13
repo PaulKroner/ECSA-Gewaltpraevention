@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         error_log("Deleting employee with ID: " . $id);
 
         // SQL-Abfrage vorbereiten
-        $sql = "DELETE FROM employees WHERE id = :id";
+        $sql = "DELETE FROM gp_employees WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         error_log("Deleting User with ID: " . $id);
 
         // SQL-Abfrage vorbereiten
-        $sql = "DELETE FROM users WHERE id = :id";
+        $sql = "DELETE FROM gp_users WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
