@@ -1,14 +1,14 @@
 <?php
 // Datenbankkonfiguration
 $host = "localhost"; // oder IP des Servers
-$dbname = "gewaltprävention-edv";
+$dbname = "gewaltpraevention_edv";
 $username = "root"; // dein DB-Benutzer
 $password = ""; // dein DB-Passwort
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Allow-Credentials: true");
+// header("Access-Control-Allow-Origin: http://localhost:3000");
+// header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
+// header("Access-Control-Allow-Headers: Content-Type, Authorization");
+// header("Access-Control-Allow-Credentials: true");
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password, [
