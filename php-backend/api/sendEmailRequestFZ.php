@@ -8,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (!isset($data['email']) || !isset($data['name'])) {
-  echo json_encode(["message" => "Falsche Eingaben"]);
+if (!isset($data['email']) || !isset($data['name']) || !isset($data['vorname'])) {
+  echo json_encode(["success" => false, "message" => "Falsche Eingaben"]);
   http_response_code(400);
   exit();
 }
@@ -51,6 +51,6 @@ try {
   $mail->send();
   echo json_encode(["message" => "Email erfolgreich versendet"]);
 } catch (Exception $e) {
-  echo "E-Mail konnte nicht gesendet werden. Fehler: {$e->getMessage()}";
-  http_response_code(500);
+  http_response_code($e->getCode() ?: 400);
+  echo json_encode(["success" => false, "message" => $e->getMessage()]);
 }

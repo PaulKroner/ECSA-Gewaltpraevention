@@ -40,8 +40,8 @@ $stmt = $pdo->prepare($updateQuery);
 $success = $stmt->execute([$hashedPassword, $user['email']]);
 
 if ($success) {
-    echo json_encode(["status" => "success", "message" => "Password successfully reset"]);
+    echo json_encode(["status" => "success", "message" => "Passwort erfolgreich zurückgesetzt!"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Failed to update password"]);
+    echo json_encode(["status" => "error", "message" => "Passwort zurücksetzen fehlgeschlagen!"]);
 }
 ?>
