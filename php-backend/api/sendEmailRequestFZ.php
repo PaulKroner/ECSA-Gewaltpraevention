@@ -44,7 +44,7 @@ if (file_exists($pdfPath)) {
 $mail->isHTML(true);
 $mail->Subject = 'Fuhrungszeugnis ubermitteln';
 $mail->Body    = $message;
-$mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: -EMAIL einfügen-";
+$mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de";
 
 try {
   // Senden

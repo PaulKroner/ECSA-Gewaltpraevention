@@ -43,7 +43,7 @@ foreach ($employees as $data) {
   $mail->isHTML(true);
   $mail->Subject = 'Führungszeugnis übermitteln';
   $mail->Body    = $message;
-  $mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: -EMAIL einfügen-";
+  $mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de";
 
   try {
     $mail->send();
