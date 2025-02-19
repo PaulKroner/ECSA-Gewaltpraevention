@@ -38,8 +38,8 @@ try {
         exit;
     }
 
-    // Passwort hashen
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // hash passwort
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     // Nutzer in die Datenbank einfügen
     $sql = "INSERT INTO gp_users (email, password, role_id, name, vorname) 
