@@ -9,22 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 // Get the POST data
 $data = json_decode(file_get_contents('php://input'), true);
-$email = isset($data['email']) ? $data['email'] : '';
-if (!isset($data['email'])) {
-  echo json_encode(["message" => "Falsche Eingaben"]);
-  http_response_code(400);
-  exit();
-} else {
-  echo json_encode(["message" => "Wenn ein Konto mit dieser E-Mail-Adresse existiert, wurde eine E-Mail zum Zurücksetzen des Passworts gesendet."]);
-};
+$email = $data['email'];
 
 // Validate the email
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
   // Check if the email exists in the database
-  $query = "SELECT * FROM users WHERE email = ?";
+  $query = "SELECT vorname, name FROM gp_users WHERE email = ?";
   $stmt = $pdo->prepare($query);
-  $stmt->execute([$email]);
-  $user = $stmt->fetch();
+  $stmt->execute([$email]); // Properly execute with parameter
+  $user = $stmt->fetch();  
 
   if ($user) {
     // Generate a reset token
@@ -39,32 +32,33 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $stmt->execute([$resetToken, $expiryDate, $email]);
 
     // Create reset link
-    $resetLink = "http://localhost:3000/registration/resetPassword/$resetToken";
+    $resetLink = "http://www.paul-coding.de/registration/resetPassword/$resetToken";
 
     // E-Mail Inhalt
+    $vorname = $user['vorname'];
+    $name = $user['name'];
     $message = "
       <h1>Passwort zurücksetzen</h1>
-      <p>Hallo ,</p>
+      <p>Hallo $vorname $name,</p>
       <div>Klicke auf den folgenden Link, um dein Passwort zurückzusetzen:</div>
       <a href=\"$resetLink\">$resetLink</a>
     ";
 
-    // Benutze die Funktion createMailConnection(), um eine Verbindung zu erstellen
+    // create mail connection from mailconfig.php
     $mail = createMailConnection();
 
-    // Absender & Empfänger
+    // sender & receiver
     $mail->addAddress($email, "");
-    // E-Mail Format
+    // e-Mail format
     $mail->isHTML(true);
     $mail->Subject = 'Passwort zurücksetzen';
     $mail->Body    = $message;
     $mail->AltBody = "Hallo ,\n\nKlicken Sie auf den folgenden Link, um Ihr Passwort zurückzusetzen:'$resetLink'";
 
-
     try {
       // Senden
       $mail->send();
-      echo json_encode(["message" => "Email erfolgreich versendet"]);
+      echo json_encode(["message" => "Wenn ein Konto mit dieser E-Mail-Adresse existiert, wurde eine E-Mail zum Zurücksetzen des Passworts gesendet."]);
     } catch (Exception $e) {
       echo "E-Mail konnte nicht gesendet werden. Fehler: {$e->getMessage()}";
       http_response_code(500);
