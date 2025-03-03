@@ -24,6 +24,8 @@ $message = "
     <p>Hallo $vorname $name,</p>
     <div>Schicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de</div>
     <div>Im Anhang finden Sie die PDF.</div>
+    <div>Herzliche Grüße</div>
+    <div>Dein Team vom ECSA</div>
 ";
 
 // Benutze die Funktion createMailConnection(), um eine Verbindung zu erstellen

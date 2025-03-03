@@ -24,6 +24,8 @@ foreach ($employees as $data) {
       <p>Hallo $vorname $name,</p>
       <div>Ihr Führungszeugnis ist abgelaufen. Im Anhang finden Sie die PDF.</div>
       <div>Schicken Sie die ausgefüllte PDF an diese E-Mail-Adresse gewaltschutz@ecsa.de</div>
+      <div>Herzliche Grüße</div>
+      <div>Dein Team vom ECSA</div>
   ";
 
   // Benutze die Funktion createMailConnection(), um eine Verbindung zu erstellen
