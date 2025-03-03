@@ -23,7 +23,7 @@ foreach ($employees as $data) {
       <h1>Upgradeschulung abgelaufen</h1>
       <p>Hallo $vorname $name,</p>
       <div>Ihre Upgradeschulung ist abgelaufen. Im Anhang finden Sie die PDF..</div>
-      <div>Schicken Sie die ausgefüllte PDF an --EMAIL einfügen--</div>
+      <div>Schicken Sie die ausgefüllte PDF bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de</div>
   ";
 
   // Benutze die Funktion createMailConnection(), um eine Verbindung zu erstellen

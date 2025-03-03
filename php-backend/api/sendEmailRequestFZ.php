@@ -22,7 +22,7 @@ $vorname = $data['vorname'];
 $message = "
     <h1>Führungszeugnis übermitteln</h1>
     <p>Hallo $vorname $name,</p>
-    <div>Schicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: -EMAIL einfügen-</div>
+    <div>Schicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de</div>
     <div>Im Anhang finden Sie die PDF.</div>
 ";
 
@@ -42,7 +42,7 @@ if (file_exists($pdfPath)) {
 
 // E-Mail Format
 $mail->isHTML(true);
-$mail->Subject = 'Fuhrungszeugnis ubermitteln';
+$mail->Subject = 'Führungszeugnis übermitteln';
 $mail->Body    = $message;
 $mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de";
 
