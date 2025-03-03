@@ -42,6 +42,10 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
       <p>Hallo $vorname $name,</p>
       <div>Klicke auf den folgenden Link, um dein Passwort zurückzusetzen:</div>
       <a href=\"$resetLink\">$resetLink</a>
+      <br></br>
+      <br></br>
+      <div>Herzliche Grüße</div>
+      <div>Dein Team vom ECSA</div>
     ";
 
     // create mail connection from mailconfig.php
