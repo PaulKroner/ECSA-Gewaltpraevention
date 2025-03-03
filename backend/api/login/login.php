@@ -1,6 +1,6 @@
 <?php
 require_once "../config.php";
-require_once "../../../vendor/autoload.php"; // Load installed packages
+require_once "../../vendor/autoload.php"; // Load installed packages
 
 use Firebase\JWT\JWT;
 

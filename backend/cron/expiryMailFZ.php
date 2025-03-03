@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 require_once "../api/mailconfig.php";
 require_once "../api/config.php";
 
@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 
 // cron logic
 // Überprüfe alle Mitarbeiter, deren Führungszeugnis abgelaufen ist
-$query = "SELECT email, name, vorname, us_abgelaufen FROM gp_employees WHERE us_abgelaufen < NOW()";
+$query = "SELECT email, name, vorname, fz_abgelaufen FROM gp_employees WHERE fz_abgelaufen < NOW()";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -20,10 +20,10 @@ foreach ($employees as $data) {
   $vorname = $data['vorname'];
 
   $message = "
-      <h1>Upgradeschulung abgelaufen</h1>
+      <h1>Führungszeugnis abgelaufen</h1>
       <p>Hallo $vorname $name,</p>
-      <div>Ihre Upgradeschulung ist abgelaufen. Im Anhang finden Sie die PDF..</div>
-      <div>Schicken Sie die ausgefüllte PDF bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de</div>
+      <div>Ihr Führungszeugnis ist abgelaufen. Im Anhang finden Sie die PDF.</div>
+      <div>Schicken Sie die ausgefüllte PDF an diese E-Mail-Adresse gewaltschutz@ecsa.de</div>
       <div>Herzliche Grüße</div>
       <div>Dein Team vom ECSA</div>
   ";
