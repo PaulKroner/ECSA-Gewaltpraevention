@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 
 // cron logic
 // Überprüfe alle Mitarbeiter, deren Führungszeugnis abgelaufen ist
-$query = "SELECT email, name, vorname, fz_abgelaufen FROM employees WHERE fz_abgelaufen < NOW()";
+$query = "SELECT email, name, vorname, fz_abgelaufen FROM gp_employees WHERE fz_abgelaufen < NOW()";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
