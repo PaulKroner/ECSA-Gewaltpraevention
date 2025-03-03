@@ -21,7 +21,7 @@ function createMailConnection()
     $mail->CharSet = 'UTF-8';  // Set charset to UTF-8 for proper encoding
 
     // Absender konfigurieren
-    $mail->setFrom('admin@paul-coding.de', 'Admin');
+    $mail->setFrom('admin@paul-coding.de', 'EC Sachsen-Anhalt e.V.');
   } catch (Exception $e) {
     error_log("Mail konnte nicht konfiguriert werden: {$mail->ErrorInfo}");
     // return null;
