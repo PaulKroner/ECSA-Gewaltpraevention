@@ -1,19 +1,18 @@
 <?php
-require '../vendor/autoload.php';
-require_once "../api/mailconfig.php";
-require_once "../api/config.php";
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+set_include_path(__DIR__ . '/../api');
+require_once 'config.php';
+// autoload.php gets included in mailconfig.php
+set_include_path(__DIR__ . '/../api');
+require_once 'mailconfig.php';
 
 // cron logic
-// Überprüfe alle Mitarbeiter, deren Führungszeugnis abgelaufen ist
+// check for every employee whose upgradeschulung certificate has expired
 $query = "SELECT email, name, vorname, us_abgelaufen FROM gp_employees WHERE us_abgelaufen < NOW()";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// E-Mail logik
+// E-Mail logic
 foreach ($employees as $data) {
   $email = $data['email'];
   $name = $data['name'];
@@ -24,11 +23,12 @@ foreach ($employees as $data) {
       <p>Hallo $vorname $name,</p>
       <div>Ihre Upgradeschulung ist abgelaufen. Im Anhang finden Sie die PDF..</div>
       <div>Schicken Sie die ausgefüllte PDF bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de</div>
+      <br><br/>
       <div>Herzliche Grüße</div>
       <div>Dein Team vom ECSA</div>
   ";
 
-  // Benutze die Funktion createMailConnection(), um eine Verbindung zu erstellen
+  // function createMailConnection() is defined in mailconfig.php
   $mail = createMailConnection();
 
   $pdfPath = __DIR__ . '/../assets/Aufforderung Polizeiliches Führungszeugnis 2023.pdf';
@@ -38,12 +38,12 @@ foreach ($employees as $data) {
     throw new Exception("PDF Datei nicht gefunden");
   }
 
-  // Absender & Empfänger
+  // sender & recipient
   $mail->addAddress($email, "$vorname $name");
 
-  // E-Mail Format
+  // E-Mail format
   $mail->isHTML(true);
-  $mail->Subject = 'Führungszeugnis übermitteln';
+  $mail->Subject = 'Upgradeschulung abgelaufen';
   $mail->Body    = $message;
   $mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de";
 

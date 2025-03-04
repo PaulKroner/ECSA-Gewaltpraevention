@@ -3,28 +3,29 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+set_include_path(__DIR__ . '/../vendor');
+require_once 'autoload.php';
 
-// Mail-Verbindung konfigurieren
+
+// mail-connection configuration
 function createMailConnection()
 {
   $mail = new PHPMailer(true);
   try {
-    // SMTP-Einstellungen
+    // SMTP-settings
     $mail->isSMTP();
-    $mail->Host       = 'mail.your-server.de'; // Dein Mail-Server
+    $mail->Host       = 'mail.your-server.de'; // mail-server
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'admin@paul-coding.de'; // Deine vollständige E-Mail-Adresse
-    $mail->Password   = 'Admin1!'; // Dein E-Mail-Passwort
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS-Verschlüsselung
-    $mail->Port       = 587; // Standardmäßig 587 für TLS, alternativ 465 für SSL
+    $mail->Username   = 'admin@paul-coding.de';
+    $mail->Password   = 'Admin1!';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //TLS encryption
+    $mail->Port       = 587;
     $mail->CharSet = 'UTF-8';  // Set charset to UTF-8 for proper encoding
 
-    // Absender konfigurieren
+    // sender settings
     $mail->setFrom('admin@paul-coding.de', 'EC Sachsen-Anhalt e.V.');
   } catch (Exception $e) {
     error_log("Mail konnte nicht konfiguriert werden: {$mail->ErrorInfo}");
-    // return null;
     die(json_encode(["success" => false, "message" => "Mail-Verbindung fehlgeschlagen: " . $e->getMessage()]));
   }
 
