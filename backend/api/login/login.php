@@ -1,28 +1,25 @@
 <?php
 require_once "../config.php";
-require_once "../../vendor/autoload.php"; // Load installed packages
+require_once "../../vendor/autoload.php";
 
 use Firebase\JWT\JWT;
 
-// OPTIONS-Requests direkt beantworten (CORS Preflight)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// Daten einlesen
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data["email"] ?? "";
 $password = $data["password"] ?? "";
 
-// Prüfen, ob beide Felder ausgefüllt sind
+// check if email and password are set
 if (empty($email) || empty($password)) {
     http_response_code(400);
     echo json_encode(["success" => false, "message" => "E-Mail und Passwort erforderlich."]);
     exit();
 }
 
-// Nutzer suchen
 $stmt = $pdo->prepare("SELECT id, email, role_id, password FROM gp_users WHERE email = :email");
 $stmt->execute(["email" => $email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);

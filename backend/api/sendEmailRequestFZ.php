@@ -18,7 +18,7 @@ $email = $data['email'];
 $name = $data['name'];
 $vorname = $data['vorname'];
 
-// E-Mail Inhalt
+// E-Mail content
 $message = "
     <h1>Führungszeugnis übermitteln</h1>
     <p>Hallo $vorname $name,</p>
@@ -28,13 +28,13 @@ $message = "
     <div>Dein Team vom ECSA</div>
 ";
 
-// Benutze die Funktion createMailConnection(), um eine Verbindung zu erstellen
+// createMailConnection() is defined in mailconfig.php
 $mail = createMailConnection();
 
-// Absender & Empfänger
+// sender & recipient
 $mail->addAddress($email, "$vorname $name");
 
-// PDF-Anhang
+// PDF-Attachment
 $pdfPath = __DIR__ . '/../assets/Aufforderung Polizeiliches Führungszeugnis 2023.pdf';
 if (file_exists($pdfPath)) {
   $mail->addAttachment($pdfPath, 'Aufforderung Polizeiliches Führungszeugnis 2023.pdf');
@@ -42,14 +42,13 @@ if (file_exists($pdfPath)) {
   throw new Exception("PDF Datei nicht gefunden");
 }
 
-// E-Mail Format
+// E-Mail format
 $mail->isHTML(true);
 $mail->Subject = 'Führungszeugnis übermitteln';
 $mail->Body    = $message;
 $mail->AltBody = "Hallo $vorname $name,\n\nSchicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de";
 
 try {
-  // Senden
   $mail->send();
   echo json_encode(["message" => "Email erfolgreich versendet"]);
 } catch (Exception $e) {

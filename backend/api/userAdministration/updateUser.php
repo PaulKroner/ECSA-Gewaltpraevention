@@ -1,22 +1,21 @@
 <?php
-require_once "../config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);
   exit;
 }
 
-// JSON-Daten aus dem Request einlesen
+// get the data from the request
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Überprüfung der erforderlichen Felder
+// check if all required data is set
 if (!isset($data["id"], $data["name"], $data["vorname"], $data["email"], $data["role"])) {
   echo json_encode(["success" => false, "message" => "Fehlende Daten."]);
   exit;
 }
 
 try {
-  // SQL-Abfrage vorbereiten
   $sql = "UPDATE gp_users SET 
           name = :name, 
           vorname = :vorname, 

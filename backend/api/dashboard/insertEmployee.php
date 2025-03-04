@@ -1,5 +1,5 @@
 <?php
-require_once "../config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php";
 
 // Handle preflight (OPTIONS request)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -11,10 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   exit;
 }
 
-// JSON-Daten aus dem Request einlesen
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Überprüfung der erforderlichen Felder
+// check if all required data is set
 if (!isset($data["name"], $data["vorname"], $data["email"])) {
   echo json_encode(["success" => false, "message" => "Fehlende Daten."]);
   exit;
@@ -22,7 +21,6 @@ if (!isset($data["name"], $data["vorname"], $data["email"])) {
 $hauptamt = isset($data["hauptamt"]) && ($data["hauptamt"] === '1' || $data["hauptamt"] === true) ? 1 : 0;
 
 try {
-  // SQL-Abfrage vorbereiten
   $sql = "INSERT INTO gp_employees (name, vorname, email, postadresse, fz_eingetragen, fz_abgelaufen, fz_kontrolliert, fz_kontrolliert_am, gs_eingetragen, gs_erneuert, gs_kontrolliert, us_eingetragen, us_abgelaufen, us_kontrolliert, sve_eingetragen, sve_kontrolliert, hauptamt)
             VALUES (:name, :vorname, :email, :postadresse, :fz_eingetragen, :fz_abgelaufen, :fz_kontrolliert, :fz_kontrolliert_am, :gs_eingetragen, :gs_erneuert, :gs_kontrolliert, :us_eingetragen, :us_abgelaufen, :us_kontrolliert, :sve_eingetragen, :sve_kontrolliert, :hauptamt)";
 

@@ -1,14 +1,13 @@
 <?php
-require_once "../config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php";
 // Handle preflight (OPTIONS request)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
   http_response_code(200);
   exit;
 }
 
-// DELETE-Anfrage für den Mitarbeiter
+// DELETE-request for deleting a user
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Daten aus der URL holen (id)
     parse_str(file_get_contents("php://input"), $data);
     $id = $_GET['id'] ?? null;
 
@@ -19,18 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 
     try {
-        // Debugging: Überprüfen, ob die ID korrekt empfangen wird
-        error_log("Deleting User with ID: " . $id);
-
-        // SQL-Abfrage vorbereiten
         $sql = "DELETE FROM gp_users WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-        // Abfrage ausführen
         $stmt->execute();
 
-        // Erfolgreiches Löschen prüfen
+        // check if user was deleted
         if ($stmt->rowCount() > 0) {
             echo json_encode(['message' => 'User erfolgreich gelöscht']);
         } else {

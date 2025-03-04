@@ -1,33 +1,30 @@
 <?php
-require_once "../config.php"; // Verbindung zur Datenbank einbinden
+require_once "../config.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);
   exit;
 }
 
-// JSON-Daten aus dem Request einlesen
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Überprüfung der erforderlichen Felder
+// check if all required data is set
 if (!isset($data["id"], $data["name"], $data["vorname"], $data["email"])) {
   echo json_encode(["success" => false, "message" => "Fehlende Daten."]);
   exit;
 }
 
-// Optionales Feld 'hauptamt' umwandeln
+// optional field hauptamt (default 0)
 $hauptamt = isset($data["hauptamt"]) && ($data["hauptamt"] === '1' || $data["hauptamt"] === true) ? 1 : 0;
 
 try {
 
-  // SQL-Abfrage vorbereiten
-  // Überprüfen, ob das Datum gültig ist und entweder den Wert oder NULL setzen
+  // check if the date is valid and set either the value or NULL
   function convertToDate($date)
   {
     return !empty($date) ? date("Y-m-d H:i:s", strtotime($date)) : null;
   }
 
-  // SQL-Abfrage vorbereiten
   $sql = "UPDATE gp_employees SET 
           name = :name, 
           vorname = :vorname, 
@@ -48,7 +45,6 @@ try {
           hauptamt = :hauptamt 
         WHERE id = :id";
 
-  // Prepare the statement
   $stmt = $pdo->prepare($sql);
 
   // Execute the statement with the form data
@@ -72,9 +68,6 @@ try {
     ":hauptamt" => $hauptamt,
     ":id" => $data["id"]
   ]);
-
-  echo json_encode(["success" => true, "message" => "Mitarbeiter erfolgreich aktualisiert."]);
-
 
   echo json_encode(["success" => true, "message" => "Mitarbeiter erfolgreich aktualisiert."]);
 } catch (PDOException $e) {

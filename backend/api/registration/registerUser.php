@@ -1,35 +1,33 @@
 <?php
-require_once "../config.php"; // Verbindung zur Datenbank einbinden
-// OPTIONS-Preflight-Anfragen direkt beantworten
+require_once "../config.php";
+// OPTIONS-Preflight-requests
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
   http_response_code(200);
   exit;
 }
 
-// Nur POST-Anfragen zulassen
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);
     exit;
 }
 
-// JSON-Daten aus dem Request einlesen
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Überprüfung der erforderlichen Felder
+// check if all required data is set
 if (!isset($data["email"], $data["password"], $data["role"], $data["name"], $data["vorname"])) {
     echo json_encode(["success" => false, "message" => "Fehlende Daten."]);
     exit;
 }
 
-// Eingaben bereinigen und vorbereiten
+// input data cleaning and validation
 $email = trim(strtolower($data["email"]));
 $password = $data["password"];
-$role = intval($data["role"]); // Sicherstellen, dass es eine Ganzzahl ist
+$role = intval($data["role"]); // check if role is an integer
 $name = trim($data["name"]);
 $vorname = trim($data["vorname"]);
 
 try {
-    // Prüfen, ob die E-Mail bereits existiert
+    // check if email is already registered
     $stmt = $pdo->prepare("SELECT id FROM gp_users WHERE email = :email");
     $stmt->execute([":email" => $email]);
 
@@ -41,14 +39,13 @@ try {
     // hash passwort
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    // Nutzer in die Datenbank einfügen
     $sql = "INSERT INTO gp_users (email, password, role_id, name, vorname) 
             VALUES (:email, :password, :role_id, :name, :vorname)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ":email" => $email,
         ":password" => $hashedPassword,
-        ":role_id" => $role, // Hier war vorher ein Fehler: `role_id`
+        ":role_id" => $role,
         ":name" => $name,
         ":vorname" => $vorname
     ]);
