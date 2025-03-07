@@ -12,6 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data["email"] ?? "";
 $password = $data["password"] ?? "";
+$honeypot = $data["honeypot"] ?? "";
+
+// honeypot-protection: If the field is filled, block the request
+if (!empty($honeypot)) {
+  http_response_code(403);
+  echo json_encode(["success" => false, "message" => "Zugriff verweigert."]);
+  exit();
+}
 
 // check if email and password are set
 if (empty($email) || empty($password)) {
