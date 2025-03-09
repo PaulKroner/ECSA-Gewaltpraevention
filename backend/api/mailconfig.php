@@ -13,17 +13,16 @@ function createMailConnection()
   $mail = new PHPMailer(true);
   try {
     // SMTP-settings
-    $mail->isSMTP();
-    $mail->Host       = 'mail.your-server.de'; // mail-server
+    $mail->Host       = getenv('MAIL_HOST');
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'admin@paul-coding.de';
-    $mail->Password   = 'Admin1!';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //TLS encryption
-    $mail->Port       = 587;
-    $mail->CharSet = 'UTF-8';  // Set charset to UTF-8 for proper encoding
+    $mail->Username   = getenv('MAIL_USERNAME');
+    $mail->Password   = getenv('MAIL_PASSWORD');
+    $mail->SMTPSecure = getenv('MAIL_ENCRYPTION') === 'tls' ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = getenv('MAIL_PORT');
+    $mail->CharSet    = 'UTF-8';  // Set charset to UTF-8 for proper encoding
 
     // sender settings
-    $mail->setFrom('admin@paul-coding.de', 'EC Sachsen-Anhalt e.V.');
+    $mail->setFrom(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'));
   } catch (Exception $e) {
     error_log("Mail konnte nicht konfiguriert werden: {$mail->ErrorInfo}");
     die(json_encode(["success" => false, "message" => "Mail-Verbindung fehlgeschlagen: " . $e->getMessage()]));

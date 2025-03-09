@@ -38,7 +38,8 @@ if (!$user || !password_verify($password, $user['password'])) {
     exit();
 }
 
-$secret_key = "your_secret_key"; // Replace with an actual secret key
+// Load JWT secret from .env
+$secret_key = getenv('JWT_SECRET_KEY');
 
 $payload = [
     "id" => $user["id"],
