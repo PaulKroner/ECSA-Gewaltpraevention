@@ -1,5 +1,6 @@
 <?php
 require_once "mailconfig.php";
+require_once "config.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);
@@ -8,15 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (!isset($data['email']) || !isset($data['name']) || !isset($data['vorname'])) {
-  echo json_encode(["success" => false, "message" => "Falsche Eingaben"]);
-  http_response_code(400);
-  exit();
-}
+// if (!isset($data['email']) || !isset($data['name']) || !isset($data['vorname'])) {
+//   echo json_encode(["success" => false, "message" => "Falsche Eingaben"]);
+//   http_response_code(400);
+//   exit();
+// }
 
 $email = $data['email'];
-$name = $data['name'];
-$vorname = $data['vorname'];
+// $name = $data['name'];
+// $vorname = $data['vorname'];
+$name = "test";
+$vorname = "testa";
 
 // E-Mail content
 $message = "
@@ -31,9 +34,6 @@ $message = "
 // createMailConnection() is defined in mailconfig.php
 $mail = createMailConnection();
 
-// sender & recipient
-$mail->addAddress($email, "$vorname $name");
-
 // PDF-Attachment
 $pdfPath = __DIR__ . '/../assets/Aufforderung Polizeiliches Führungszeugnis 2023.pdf';
 if (file_exists($pdfPath)) {
@@ -41,6 +41,9 @@ if (file_exists($pdfPath)) {
 } else {
   throw new Exception("PDF Datei nicht gefunden");
 }
+
+// sender & receiver
+$mail->addAddress($email, "");
 
 // E-Mail format
 $mail->isHTML(true);
