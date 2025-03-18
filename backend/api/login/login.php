@@ -38,12 +38,17 @@ if (!$user || !password_verify($password, $user['password'])) {
     exit();
 }
 
+// Expiration time for JWT
+// Get current time and add 2 days (2 * 24 * 60 * 60 seconds)
+$expiration_time = time() + (2 * 24 * 60 * 60);
+
 // Load JWT secret from .env
 $secret_key = getenv('JWT_SECRET_KEY');
 
 $payload = [
     "id" => $user["id"],
     "role_id" => $user["role_id"],
+    "exp" => $expiration_time,
 ];
 
 $jwt = JWT::encode($payload, $secret_key, 'HS256');
