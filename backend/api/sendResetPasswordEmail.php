@@ -32,7 +32,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $stmt->execute([$resetToken, $expiryDate, $email]);
 
     // Create reset link
-    $resetLink = "http://www.paul-coding.de/registration/resetPassword/$resetToken";
+    $resetLink = "https://gewaltpraevention.ecsa.de/registration/resetPassword/$resetToken";
 
     // E-Mail Inhalt
     $vorname = $user['vorname'];
