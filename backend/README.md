@@ -59,7 +59,7 @@ Gehe auf [Xampp installieren](https://www.apachefriends.org/de/faq_windows.html)
 Der Ordner `Backend`muss in den Ordner `htdocs` von [Xampp](https://www.apachefriends.org/de/index.html) eingefügt werden. Über das User Interface von Xampp können Datenbank und Apache Server gestartet werden.\
 Wenn [Xampp](https://www.apachefriends.org/de/index.html) läuft, kann das Backend über `http://localhost/backend/datei.php` aufgerufen werden.\
 
-## Einrichtung Mailhog
+## Einrichtung MailHog
 
 Zum lokalen Testen der Email-Funktionen wurde [MailHog](https://github.com/mailhog/MailHog) verwendet. Die [Schritte Installation](https://github.com/mailhog/MailHog) kann dem GitHub entnommen werden. Die aktuellsten Versionen sind [hier](https://github.com/mailhog/MailHog/releases) zu finden.\
 Gestartet wird es im `Terminal` oder per `.exe` mit
