@@ -10,7 +10,7 @@ function loadEnv($path) {
       putenv("$name=$value");
   }
 }
-loadEnv(__DIR__ . '/../.env.dev');
+loadEnv(__DIR__ . '/../.env');
 
 // database configuration
 $host = getenv('DB_HOST');
