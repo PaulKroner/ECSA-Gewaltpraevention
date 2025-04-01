@@ -18,6 +18,17 @@ if (!isset($data["name"], $data["vorname"], $data["email"])) {
   echo json_encode(["success" => false, "message" => "Fehlende Daten."]);
   exit;
 }
+
+if (!isset($data["postadresse"]) || empty($data["postadresse"])) {
+  $data["postadresse"] = "";
+} else {
+  if (!preg_match('/^\d{5} [A-Za-zÄÖÜäöüß\s-]+$/u', $data["postadresse"])) {
+      echo json_encode(["success" => false, "message" => "Ungültiges Format der Postadresse."]);
+      exit; // Beendet das Skript
+  }
+}
+
+
 $hauptamt = isset($data["hauptamt"]) && ($data["hauptamt"] === '1' || $data["hauptamt"] === true) ? 1 : 0;
 
 try {
