@@ -9,15 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-// if (!isset($data['email']) || !isset($data['name']) || !isset($data['vorname'])) {
-//   echo json_encode(["success" => false, "message" => "Falsche Eingaben"]);
-//   http_response_code(400);
-//   exit();
-// }
-
 $email = $data['email'];
-// $name = $data['name'];
-// $vorname = $data['vorname'];
 $name = "test";
 $vorname = "testa";
 
