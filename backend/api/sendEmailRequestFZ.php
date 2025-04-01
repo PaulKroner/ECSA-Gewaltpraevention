@@ -27,6 +27,7 @@ $message = "
     <p>Hallo $vorname $name,</p>
     <div>Schicken Sie ihr Führungszeugnis bitte an diese E-Mail-Adresse: gewaltschutz@ecsa.de</div>
     <div>Im Anhang finden Sie die PDF.</div>
+    <br><br/>
     <div>Herzliche Grüße</div>
     <div>Dein Team vom ECSA</div>
 ";
@@ -42,7 +43,7 @@ if (file_exists($pdfPath)) {
   throw new Exception("PDF Datei nicht gefunden");
 }
 
-// sender & receiver
+// receiver
 $mail->addAddress($email, "");
 
 // E-Mail format
