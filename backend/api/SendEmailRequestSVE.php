@@ -10,8 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $data = json_decode(file_get_contents("php://input"), true);
 
 $email = $data['email'];
-$name = "test";
-$vorname = "testa";
+$name = $data['name'];
+$vorname = $data['vorname'];
 
 // E-Mail content
 $message = "
