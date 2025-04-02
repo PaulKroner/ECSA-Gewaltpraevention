@@ -32,8 +32,8 @@ if (!isset($data["postadresse"]) || empty($data["postadresse"])) {
 $hauptamt = isset($data["hauptamt"]) && ($data["hauptamt"] === '1' || $data["hauptamt"] === true) ? 1 : 0;
 
 try {
-  $sql = "INSERT INTO gp_employees (name, vorname, email, postadresse, fz_eingetragen, fz_abgelaufen, fz_kontrolliert, fz_kontrolliert_am, gs_eingetragen, gs_erneuert, gs_kontrolliert, us_eingetragen, us_abgelaufen, us_kontrolliert, sve_eingetragen, sve_kontrolliert, hauptamt)
-            VALUES (:name, :vorname, :email, :postadresse, :fz_eingetragen, :fz_abgelaufen, :fz_kontrolliert, :fz_kontrolliert_am, :gs_eingetragen, :gs_erneuert, :gs_kontrolliert, :us_eingetragen, :us_abgelaufen, :us_kontrolliert, :sve_eingetragen, :sve_kontrolliert, :hauptamt)";
+  $sql = "INSERT INTO gp_employees (name, vorname, email, postadresse, gemeinde_freizeit, fz_eingetragen, fz_abgelaufen, fz_kontrolliert, fz_kontrolliert_am, gs_eingetragen, gs_erneuert, gs_kontrolliert, us_eingetragen, us_abgelaufen, us_kontrolliert, sve_eingetragen, sve_kontrolliert, hauptamt)
+            VALUES (:name, :vorname, :email, :postadresse, :gemeinde_freizeit, :fz_eingetragen, :fz_abgelaufen, :fz_kontrolliert, :fz_kontrolliert_am, :gs_eingetragen, :gs_erneuert, :gs_kontrolliert, :us_eingetragen, :us_abgelaufen, :us_kontrolliert, :sve_eingetragen, :sve_kontrolliert, :hauptamt)";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute([
@@ -41,6 +41,7 @@ try {
     ":vorname" => $data["vorname"],
     ":email" => $data["email"],
     ":postadresse" => $data["postadresse"],
+    ":gemeinde_freizeit" => $data["gemeinde_freizeit"],
     ":fz_eingetragen" => $data["fz_eingetragen"],
     ":fz_abgelaufen" => $data["fz_abgelaufen"],
     ":fz_kontrolliert" => $data["fz_kontrolliert"],
