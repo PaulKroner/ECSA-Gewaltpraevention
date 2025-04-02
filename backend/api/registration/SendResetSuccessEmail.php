@@ -7,7 +7,7 @@ function sendResetSuccessEmail($email)
   $message = "
     <h1>Passwort wurde erfolgreich zurückgesetzt!</h1>
     <p></p>
-    <div>Dein Passwort wurde erfolgreich zurückgesetzt. Du kannst dich nun mit dem neuen Passwort anmelden</div>
+    <div>Dein Passwort wurde erfolgreich zurückgesetzt. Du kannst dich nun mit dem neuen Passwort anmelden.</div>
     <div>Falls du das nicht warst, wende dich umgehend an einen Admin.</div>
     <br><br/>
     <div>Herzliche Grüße</div>
