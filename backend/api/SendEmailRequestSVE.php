@@ -28,12 +28,12 @@ $message = "
 $mail = createMailConnection();
 
 // PDF-Attachment
-// $pdfPath = __DIR__ . '/../assets/Aufforderung Polizeiliches Führungszeugnis 2023.pdf';
-// if (file_exists($pdfPath)) {
-//   $mail->addAttachment($pdfPath, 'Aufforderung Polizeiliches Führungszeugnis 2023.pdf');
-// } else {
-//   throw new Exception("PDF Datei nicht gefunden");
-// }
+$pdfPath = __DIR__ . '/../assets/SVE 2025.pdf';
+if (file_exists($pdfPath)) {
+  $mail->addAttachment($pdfPath, 'SVE 2025.pdf.pdf');
+} else {
+  throw new Exception("PDF Datei nicht gefunden");
+}
 
 // receiver
 $mail->addAddress($email, "");
