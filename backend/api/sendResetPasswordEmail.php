@@ -17,7 +17,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
   $query = "SELECT vorname, name FROM gp_users WHERE email = ?";
   $stmt = $pdo->prepare($query);
   $stmt->execute([$email]); // Properly execute with parameter
-  $user = $stmt->fetch();  
+  $user = $stmt->fetch();
 
   if ($user) {
     // Generate a reset token
@@ -34,22 +34,29 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     // Create reset link
     $resetLink = "https://gewaltpraevention.ecsa.de/registration/resetPassword/$resetToken";
 
-    // E-Mail Inhalt
     $vorname = $user['vorname'];
     $name = $user['name'];
+
+    // create mail connection from mailconfig.php
+    $mail = createMailConnection();
+
+    $mail->addEmbeddedImage(__DIR__ . '/../assets/EC-Mail-Logo.png', 'ec_logo_cid', 'EC-Mail-Logo.png');
+    // E-Mail Inhalt
+
     $message = "
       <h1>Passwort zurücksetzen</h1>
-      <p>Hallo $vorname $name,</p>
+      <p>Liebe(r) $vorname $name,</p>
       <div>Klicke auf den folgenden Link, um dein Passwort zurückzusetzen:</div>
       <a href=\"$resetLink\">$resetLink</a>
       <br></br>
       <br></br>
       <div>Herzliche Grüße</div>
       <div>Dein Team vom ECSA</div>
+      <img src=\"cid:ec_logo_cid\" alt=\"EC-Mail-Logo\" style=\"max-width: 300px; height: auto;\" />
+      <div>
+        <a href=\"https://www.ecsa.de\" target=\"_blank\">www.ecsa.de</a><br/>
+      </div>
     ";
-
-    // create mail connection from mailconfig.php
-    $mail = createMailConnection();
 
     // sender & receiver
     $mail->addAddress($email, "");
@@ -57,7 +64,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $mail->isHTML(true);
     $mail->Subject = 'Passwort zurücksetzen';
     $mail->Body    = $message;
-    $mail->AltBody = "Hallo ,\n\nKlicken Sie auf den folgenden Link, um Ihr Passwort zurückzusetzen:'$resetLink'";
+    $mail->AltBody = "Liebe(r) ,\n\nKlicken Sie auf den folgenden Link, um Ihr Passwort zurückzusetzen:'$resetLink'";
 
     try {
       // Senden
@@ -69,4 +76,3 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     }
   }
 }
-?>

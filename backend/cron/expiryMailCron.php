@@ -33,11 +33,8 @@ function sendExpiryNotification($pdo, $column, $nachweisType, $subject, $pdfFile
 
     $message = "
             <h1>$subject</h1>
-            <p>Hallo $vorname $name,</p>
-            <div>$emailBody</div>
-            <br><br/>
-            <div>Herzliche Grüße</div>
-            <div>Dein Team vom ECSA</div>
+            <p>Liebe(r) $vorname $name,</p>
+            $emailBody
         ";
 
     $mail = createMailConnection();
@@ -51,11 +48,15 @@ function sendExpiryNotification($pdo, $column, $nachweisType, $subject, $pdfFile
       }
     }
 
+    // add logos
+    $mail->addEmbeddedImage(__DIR__ . '/../assets/EC-Mail-Logo.png', 'ec_logo_cid', 'EC-Mail-Logo.png');
+    $mail->addEmbeddedImage(__DIR__ . '/../assets/FTS-Mail-Logo.jpg', 'fts_logo_cid', 'FTS-Mail-Logo.jpg');
+
     $mail->addAddress($email, "$vorname $name");
     $mail->isHTML(true);
     $mail->Subject = $subject;
     $mail->Body = $message;
-    $mail->AltBody = "Hallo $vorname $name,\n\n$emailBody";
+    $mail->AltBody = "Liebe(r) $vorname $name,\n\n$emailBody";
 
     // save email in email_logs table
     $logQuery = "INSERT INTO email_logs (email, nachweis, gesendet_am) VALUES (?, ?, NOW())";
@@ -78,7 +79,47 @@ sendExpiryNotification(
   'fz',
   'Führungszeugnis übermitteln',
   'Aufforderung Polizeiliches Führungszeugnis 2023.pdf',
-  'Ihr Führungszeugnis ist abgelaufen. Im Anhang finden Sie die PDF.<br>Schicken Sie die ausgefüllte PDF an diese E-Mail-Adresse gewaltschutz@ecsa.de',
+  '<div>
+    Wie die Zeit vergeht! Du bekommst diese Mail, weil dein erweitertes polizeiliches Führungszeugnis abgelaufen ist 
+    und erneuert werden muss. Bitte ergänze in der angehängten PDF-Datei „Aufforderung zur Vorlage eines Führungszeugnisses“ deine Daten, 
+    drucke die Datei aus und geh damit zu dem für dich zuständigen Einwohnermeldeamt oder Bürgerbüro. <br>
+    Nach etwa 3 Wochen bekommst du das Führungszeugnis per Post zugeschickt. Bitte geh damit zu der beauftragten Person oder den Freizeitleiter und lass ihn und gewähre dieser und einer weitere Person Einsicht in das Führungszeugnis. 
+    Um alles weitere kümmert sich die für dich zuständige beauftragte Person.<br>
+    Ich danke dir ganz herzlich für dein Verständnis und die zeitnahe Umsetzung dieser Aufforderung und wünsche dir weiterhin viel Freude, Gelingen und Segen bei deinem wichtigen und wertvollen Dienst.
+    <br><br/>
+    <p>
+      Viele Grüße
+    </p>
+    Thomas
+    <br><br/>
+    Thomas Kamm
+    <br/>
+    Geschäftsführer im
+  </div>
+  <div style="font-weight:bold">
+    EC-Verband für Kinder- und Jugendarbeit Sachsen-Anhalt e.V.
+  </div>
+  <img src="cid:ec_logo_cid" alt="EC-Mail-Logo" style="max-width: 300px; height: auto;" />
+  <div>
+    und
+  </div>
+  <div style="font-weight:bold">
+    Förderverein Theologisches Studienzentrum Berlin e.V.
+  </div>
+  <img src="cid:fts_logo_cid" alt="FTS-Mail-Log" style="max-width: 300px; height: auto;" />
+  <div>
+    Bülstringer Straße 42 <br/>
+    39340 Haldensleben <br/>
+    Tel.: +49 - 3904 - 462302 <br/>
+    Fax: +49 - 3904 - 462303 <br/>
+    Mobil: +49 - 1575 - 7046619
+  </div>
+   <div style="display: inline-flex; align-items: center; gap: 5px;">
+    <a href="https://www.ecsa.de" target="_blank">www.ecsa.de</a><br/>
+    <span>&nbsp;/&nbsp;</span>      
+    <a href="https://www.tsberlin.org" target="_blank">www.tsberlin.org</a><br/>
+  </div>
+    ',
   true
 );
 
@@ -88,6 +129,48 @@ sendExpiryNotification(
   'us',
   'Upgradeschulung abgelaufen',
   '',
-  'Ihre Upgradeschulung ist abgelaufen. Bitte erneuern Sie Ihre Upgradeschulung.',
+  '
+  <div>
+    Unser Gewaltschutz-Konzept sieht vor, dass sich unsere Mitarbeiterinnen und Mitarbeiter in dem 
+    wichtigen Bereich des Schutzes der uns anvertrauten Menschen kontinuierlich weiterbilden und 
+    sensibilisieren. Deshalb möchten wir dich ganz herzlich bitten, deine Schulung aufzufrischen und 
+    zeitnah an einer Upgrade-Schulung teilzunehmen. Die kommenden Termine hierfür erfährst du bei deiner 
+    beauftragten Person, deinem Freizeitleiter oder unter (<a href=\"https://ecsa.de/\" target=\"_blank\">www.ecsa.de</a>).
+    <br><br/>
+    Vielen Dank für dein Verständnis und die zeitnahe Umsetzung dieser Bitte!
+    <br><br/>
+    <p>
+      Viele Grüße
+    </p>
+    Thomas
+    <br><br/>
+    Thomas Kamm
+    <br/>
+    Geschäftsführer im
+  </div>
+  <div style="font-weight:bold">
+    EC-Verband für Kinder- und Jugendarbeit Sachsen-Anhalt e.V.
+  </div>
+  <img src="cid:ec_logo_cid" alt="EC-Mail-Logo" style="max-width: 300px; height: auto;" />
+  <div>
+    und
+  </div>
+  <div style="font-weight:bold">
+    Förderverein Theologisches Studienzentrum Berlin e.V.
+  </div>
+  <img src="cid:fts_logo_cid" alt="FTS-Mail-Logo" style="max-width: 300px; height: auto;" />
+  <div>
+    Bülstringer Straße 42 <br/>
+    39340 Haldensleben <br/>
+    Tel.: +49 - 3904 - 462302 <br/>
+    Fax: +49 - 3904 - 462303 <br/>
+    Mobil: +49 - 1575 - 7046619
+  </div>
+  <div style="display: inline-flex; align-items: center; gap: 5px;">
+    <a href="https://www.ecsa.de" target="_blank">www.ecsa.de</a><br/>
+    <span>&nbsp;/&nbsp;</span>      
+    <a href="https://www.tsberlin.org" target="_blank">www.tsberlin.org</a><br/>
+  </div>
+  ',
   false
 );
