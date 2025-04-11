@@ -34,6 +34,18 @@ try {
     return !empty($date) ? date("Y-m-d H:i:s", strtotime($date)) : null;
   }
 
+  // FZ-Log löschen, wenn fz_abgelaufen gesetzt ist
+  if (!empty($data["fz_abgelaufen"])) {
+    $stmtDeleteFZ = $pdo->prepare("DELETE FROM email_logs WHERE email = :email AND nachweis = 'fz'");
+    $stmtDeleteFZ->execute([":email" => $data["email"]]);
+  }
+
+  // US-Log löschen, wenn us_abgelaufen gesetzt ist
+  if (!empty($data["us_abgelaufen"])) {
+    $stmtDeleteUS = $pdo->prepare("DELETE FROM email_logs WHERE email = :email AND nachweis = 'us'");
+    $stmtDeleteUS->execute([":email" => $data["email"]]);
+  }
+
   $sql = "UPDATE gp_employees SET 
           name = :name, 
           vorname = :vorname, 
