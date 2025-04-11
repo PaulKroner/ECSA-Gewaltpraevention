@@ -17,12 +17,6 @@ function validateResetToken($token) {
 
 header('Content-Type: application/json');
 
-// Example usage in an API route
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
   $token = $_GET['token'];
   
