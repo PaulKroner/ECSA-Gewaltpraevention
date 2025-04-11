@@ -1,6 +1,6 @@
 <?php
 include_once "../config.php";
-require 'SendResetSuccessEmail.php';
+require 'sendResetSuccessEmail.php';
 
 header('Content-Type: application/json');
 
