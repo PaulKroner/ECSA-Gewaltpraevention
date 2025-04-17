@@ -18,6 +18,15 @@ if (!isset($data["name"], $data["vorname"], $data["email"])) {
   echo json_encode(["success" => false, "message" => "Fehlende Daten."]);
   exit;
 }
+// check if email is not a duplicate
+$stmt = $pdo->prepare("SELECT id FROM gp_employees WHERE email = ?");
+$stmt->execute([$email]);
+
+if ($stmt->rowCount() > 0) {
+  http_response_code(409);
+  echo json_encode(["message" => "Ein Mitarbeiter mit dieser E-Mail-Adresse existiert bereits."]);
+  exit();
+}
 
 // Postadresse optional, ansonsten prüfen
 if (!isset($data["postadresse"]) || empty($data["postadresse"])) {
@@ -120,10 +129,28 @@ try {
 
   echo json_encode(["success" => true, "message" => "Mitarbeiter erfolgreich hinzugefügt."]);
 } catch (PDOException $e) {
+  // Duplicate key error (SQLSTATE 23000, MySQL error 1062)
+  $info = $e->errorInfo;
+  if (isset($info[0], $info[1]) && $info[0] === '23000' && $info[1] === 1062
+      && stripos($info[2], "for key 'email'") !== false) {
+    http_response_code(409);
+    echo json_encode([
+      "success" => false,
+      "message" => "Ein Mitarbeiter mit dieser E-Mail-Adresse existiert bereits."
+    ]);
+  } else {
+    http_response_code(500);
+    echo json_encode([
+      "success" => false,
+      "message" => "Fehler beim Einfügen des Mitarbeiters.",
+      "error"   => $e->getMessage()
+    ]);
+  }
+} catch (Throwable $t) {
+  http_response_code(500);
   echo json_encode([
     "success" => false,
-    "message" => "Fehler beim Einfügen des Mitarbeiters.",
-    "error"   => $e->getMessage()
+    "message" => "Unerwarteter Fehler: " . $t->getMessage()
   ]);
 }
 ?>
