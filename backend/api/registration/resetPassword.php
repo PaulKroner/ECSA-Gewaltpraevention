@@ -1,5 +1,6 @@
 <?php
 include_once "../config.php";
+require 'sendResetSuccessEmail.php';
 
 header('Content-Type: application/json');
 
@@ -9,8 +10,8 @@ $token = isset($data['token']) ? $data['token'] : '';
 $newPassword = isset($data['newPassword']) ? $data['newPassword'] : '';
 
 if (empty($token) || empty($newPassword)) {
-    echo json_encode(["status" => "error", "message" => "Token and new password are required"]);
-    exit;
+  echo json_encode(["status" => "error", "message" => "Token and new password are required"]);
+  exit;
 }
 
 // Check if the token exists and is valid
@@ -20,15 +21,15 @@ $stmt->execute([$token]);
 $user = $stmt->fetch();
 
 if (!$user) {
-    echo json_encode(["status" => "error", "message" => "Invalid token"]);
-    exit;
+  echo json_encode(["status" => "error", "message" => "Invalid token"]);
+  exit;
 }
 
 // Check if token has expired
 $currentDate = date('Y-m-d H:i:s');
 if ($user['reset_token_expiry'] < $currentDate) {
-    echo json_encode(["status" => "error", "message" => "Token has expired"]);
-    exit;
+  echo json_encode(["status" => "error", "message" => "Token has expired"]);
+  exit;
 }
 
 // Hash the new password
@@ -40,8 +41,8 @@ $stmt = $pdo->prepare($updateQuery);
 $success = $stmt->execute([$hashedPassword, $user['email']]);
 
 if ($success) {
-    echo json_encode(["status" => "success", "message" => "Passwort erfolgreich zurückgesetzt!"]);
+  $emailSent = sendResetSuccessEmail($user['email']);
+  echo json_encode(["status" => "success", "message" => "Passwort erfolgreich zurückgesetzt!"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Passwort zurücksetzen fehlgeschlagen!"]);
+  echo json_encode(["status" => "error", "message" => "Passwort zurücksetzen fehlgeschlagen!"]);
 }
-?>

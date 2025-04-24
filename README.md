@@ -1,4 +1,4 @@
-# Frontend zum Gewaltpräventionstool des [EC Sachsen-Anhalt e.V.](https://ecsa.de/)
+# Backend zum Gewaltpräventionstool des [EC Sachsen-Anhalt e.V.](https://ecsa.de/)
 
 Die Anwendung ermöglicht das Abrufen, Anlegen, Bearbeiten und Löschen von Mitarbeitern sowie deren Nachweisen (z. B. Polizeiliches Führungszeugnis).\
 Sobald ein Nachweis abläuft oder nachgereicht werden muss, werden automatisch E-Mail-Benachrichtigungen an die betroffenen Mitarbeiter versendet. Zudem ist ein Authentifizierungssystem mit Rollenverwaltung für Administratoren und Mitarbeiter implementiert, das auf JWT basiert.\
