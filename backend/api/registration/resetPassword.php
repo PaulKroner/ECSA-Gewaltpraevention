@@ -15,20 +15,29 @@ if (empty($token) || empty($newPassword)) {
 }
 
 // Check if the token exists and is valid
-$query = "SELECT email, reset_token_expiry FROM gp_users WHERE reset_token = ?";
+$query = "SELECT id, email, password, reset_token_expiry FROM gp_users WHERE reset_token = ?";
 $stmt = $pdo->prepare($query);
 $stmt->execute([$token]);
-$user = $stmt->fetch();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-  echo json_encode(["status" => "error", "message" => "Invalid token"]);
+  http_response_code(400);
+  echo json_encode(["message" => "Ungültiger oder abgelaufener Token."]);
   exit;
 }
 
 // Check if token has expired
 $currentDate = date('Y-m-d H:i:s');
 if ($user['reset_token_expiry'] < $currentDate) {
-  echo json_encode(["status" => "error", "message" => "Token has expired"]);
+  http_response_code(400);
+  echo json_encode(["message" => "Token ist abgelaufen."]);
+  exit;
+}
+
+// Compare new password with old password
+if (password_verify($newPassword, $user['password'])) {
+  http_response_code(400);
+  echo json_encode(["message" => "Das neue Passwort darf nicht gleich dem alten Passwort sein."]);
   exit;
 }
 
