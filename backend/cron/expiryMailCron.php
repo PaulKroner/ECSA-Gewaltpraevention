@@ -267,5 +267,4 @@ sendExpiryNotification(
   false
 );
 
-sendSecondReminderUS($pdo, $email, $name, $vorname);
 ?>
