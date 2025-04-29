@@ -47,8 +47,9 @@ MAIL_ENCRYPTION=`tls`\
 MAIL_FROM_ADDRESS=`adresse@mail.de`\
 MAIL_FROM_NAME=`NAME` - ist der Name des Absenders (nicht die Mail-Adresse)
 
-### JWT Secret Key
+### JWT && reCaptchaSecret Key
 JWT_SECRET_KEY=`JWT_SECRET_KEY` - kann eine Abfolge aus zufällig erstellten Ziffern und Buchstaben sein
+RECAPTCHA_SECRET_KEY=`RECAPTCHA_SECRET_KEY`
 
 ## Entwicklungssetup
 
