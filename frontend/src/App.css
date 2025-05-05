@@ -1,0 +1,106 @@
+html * {
+  font-family: 'Geist', sans-serif;
+}
+
+.headline {
+  font-size: 2.5rem;
+}
+
+#overview-table th,
+#overview-table td {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+tr>th:first-child, tr>td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: rgb(34 197 94);
+}
+tr:nth-child(odd) .sticky-col {
+  background-color: rgb(229 231 235);
+}
+
+tr:nth-child(even) .sticky-col {
+  background: white;
+}
+
+tr > th:last-child {
+  background-color: rgb(34 197 94);
+}
+
+tr:nth-child(odd) > td:nth-last-child(2) {
+  /* position: sticky; */
+  background-color: rgb(229 231 235);
+}
+tr:nth-child(even) > td:nth-last-child(2) {
+  /* position: sticky; */
+  background-color: white;
+}
+
+tr:nth-child(odd) > td:nth-last-child(1) {
+  /* position: sticky; */
+  background-color: rgb(229 231 235);
+}
+tr:nth-child(even) > td:nth-last-child(1) {
+  /* position: sticky; */
+  background-color: white;
+}
+
+td {
+  display: table-cell;
+  width: 5rem;
+  height: auto;
+  text-align: left;
+}
+
+#editDialogTD, #deleteDialogTD {
+  padding: 0.5rem !important;
+}
+
+th {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+input[type=checkbox] {
+  transform: scale(1.3);
+}
+
+label {
+  font-size: 1rem;
+}
+
+table {
+  width: auto;
+  table-layout: auto;
+}
+
+.bg-ec {
+  background-color: #92c355;
+}
+
+.border-ec {
+  border-color: #333;
+}
+
+.svg-dialog {
+  width: 4rem !important;
+  height: 3rem !important;
+}
+
+.svg-icon {
+  width: 2rem !important;
+  height: 1.5rem !important;
+}
+
+.addEmployee-icon {
+  width: 2rem !important;
+  height: 1.5rem !important;
+}
+
+.login-container {
+  width: 352px;
+}
