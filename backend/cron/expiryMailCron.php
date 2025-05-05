@@ -8,12 +8,12 @@ function emailSentInLast30Days($pdo, $email, $nachweisType)
 {
   if ($nachweisType === 'us') {
     // Check if the second reminder for "us" was already sent
-    $query = "SELECT 1 FROM email_logs WHERE email = ? AND nachweis = 'us' AND gesendet_am >= DATE_SUB(NOW(), INTERVAL 30 days)";
+    $query = "SELECT 1 FROM email_logs WHERE email = ? AND nachweis = 'us' AND gesendet_am >= DATE_SUB(NOW(), INTERVAL 30 DAY)";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$email]);
     return $stmt->fetch() ? true : false;
   } else {
-    $query = "SELECT 1 FROM email_logs WHERE email = ? AND nachweis = ? AND gesendet_am >= DATE_SUB(NOW(), INTERVAL 30 days)";
+    $query = "SELECT 1 FROM email_logs WHERE email = ? AND nachweis = ? AND gesendet_am >= DATE_SUB(NOW(), INTERVAL 30 DAY)";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$email, $nachweisType]);
     return $stmt->fetch() ? true : false;
@@ -163,7 +163,6 @@ function sendSecondReminderUS($pdo, $email, $name, $vorname)
         http_response_code(500);
     }
 }
-
 
 sendExpiryNotification(
   $pdo,
