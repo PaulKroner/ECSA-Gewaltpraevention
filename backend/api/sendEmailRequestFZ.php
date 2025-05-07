@@ -75,9 +75,9 @@ $message = "
 ";
 
 // PDF-Attachment
-$pdfPath = __DIR__ . '/../assets/Aufforderung Polizeiliches Führungszeugnis 2023.pdf';
+$pdfPath = __DIR__ . '/../assets/Aufforderung Polizeiliches Führungszeugnis EDV.pdf';
 if (file_exists($pdfPath)) {
-  $mail->addAttachment($pdfPath, 'Aufforderung Polizeiliches Führungszeugnis 2023.pdf');
+  $mail->addAttachment($pdfPath, 'Aufforderung Polizeiliches Führungszeugnis EDV.pdf');
 } else {
   throw new Exception("PDF Datei nicht gefunden");
 }
