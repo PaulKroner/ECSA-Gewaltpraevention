@@ -25,7 +25,7 @@ MAIL_FROM_ADDRESS=`adresse@mail.de`\
 MAIL_FROM_NAME=`NAME` - ist der Name des Absenders (nicht die Mail-Adresse)
 
 ### JWT && reCaptchaSecret Key
-JWT_SECRET_KEY=`JWT_SECRET_KEY` - kann eine Abfolge aus zufällig erstellten Ziffern und Buchstaben sein
+JWT_SECRET_KEY=`JWT_SECRET_KEY` - kann eine Abfolge aus zufällig erstellten Ziffern und Buchstaben sein\
 RECAPTCHA_SECRET_KEY=`RECAPTCHA_SECRET_KEY`
 
 ## Entwicklungssetup
@@ -61,7 +61,7 @@ Anschließend kann es unter dieser URL im Browser aufgerufen werden:\
 
 ### .env Frontend
 
-`VITE_GP_EDV_API_URL=http://localhost:8889/backend/api`\
+`VITE_GP_EDV_API_URL=http://localhost:PORT/backend/api`\
 Für die Entwicklung der App muss der Pfad, der z.B. in [Xampp](https://www.apachefriends.org/de/index.html) oder [MAMP](https://www.mamp.info/de/windows/) hinterlegt ist, angegeben werden.\
 `Localhost` muss dann für die Production geändert werden, z.B. in `https://dein-server.com/api/`.
 
@@ -69,7 +69,7 @@ Für die Entwicklung der App muss der Pfad, der z.B. in [Xampp](https://www.apac
 
 ## Scripts
 
-### `npm install` *Wichtig für Entwicklung*
+### `npm install`
 Installiert die benötigten Packages.
 
 ### `npm run dev` *Wichtig für Entwicklung*
