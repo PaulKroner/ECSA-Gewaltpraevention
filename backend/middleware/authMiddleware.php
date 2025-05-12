@@ -1,34 +1,4 @@
 <?php
-// Header für JSON
-// header('Content-Type: application/json');
-
-// // Fehlerberichterstattung aktivieren
-// ini_set('display_errors', 0); // kein direktes Ausgeben
-// ini_set('log_errors', 1);     // optional loggen
-// error_reporting(E_ALL);
-
-// // Alle Fehler und Exceptions als JSON behandeln
-// set_error_handler(function ($errno, $errstr, $errfile, $errline) {
-//     http_response_code(500);
-//     echo json_encode([
-//         'success' => false,
-//         'message' => "PHP-Fehler: $errstr in $errfile an Zeile $errline"
-//     ]);
-//     exit;
-// });
-
-// set_exception_handler(function ($exception) {
-//     http_response_code(500);
-//     echo json_encode([
-//         'success' => false,
-//         'message' => "Exception: " . $exception->getMessage()
-//     ]);
-//     exit;
-// });
-
-
-// require_once "../api/config.php";
-// require_once "../vendor/autoload.php";
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Firebase\JWT\JWT;
@@ -53,7 +23,11 @@ function getAuthorizationHeader() {
   return null;
 }
 
-
+/**
+ * Authenticates the request using JWT.
+ *
+ * @return array The decoded JWT payload.
+ */
 function authenticateRequest() {
   $header = getAuthorizationHeader();
 
