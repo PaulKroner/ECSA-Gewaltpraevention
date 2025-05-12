@@ -40,11 +40,13 @@ export const handleLogin = async (event, email, password, setLoading, login, toa
         return;
       }
 
-      localStorage.setItem('token', token);
+      // localStorage.setItem('token', token);
 
       login(token); // Store JWT properly
 
-      navigate("/dashboard");
+      if (localStorage.getItem('token')) {
+        navigate("/dashboard");
+      }
 
       toast({
         description: "Login war erfolgreich!",
