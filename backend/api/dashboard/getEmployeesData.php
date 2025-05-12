@@ -1,5 +1,9 @@
 <?php
 require_once '../config.php';
+require_once '../../middleware/authMiddleware.php';
+
+// check auth
+$userData = authenticateRequest();
 
 // SQL-request for getting all employees
 try {

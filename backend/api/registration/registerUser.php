@@ -1,5 +1,17 @@
 <?php
 require_once "../config.php";
+require_once '../../middleware/authMiddleware.php';
+
+// check auth
+$userData = authenticateRequest();
+
+// Only Admins are allowed to delete employees
+if ($userData['role_id'] != 1) {
+    http_response_code(403);
+    echo json_encode(["success" => false, "message" => "Zugriff verweigert."]);
+    exit();
+}
+
 // OPTIONS-Preflight-requests
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
   http_response_code(200);

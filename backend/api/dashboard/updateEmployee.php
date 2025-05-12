@@ -1,5 +1,9 @@
 <?php
 require_once "../config.php";
+require_once '../../middleware/authMiddleware.php';
+
+// check auth
+$userData = authenticateRequest();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   echo json_encode(["success" => false, "message" => "Ungültige Anfrage."]);

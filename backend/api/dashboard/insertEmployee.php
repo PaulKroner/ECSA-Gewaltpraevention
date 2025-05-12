@@ -1,5 +1,9 @@
 <?php
 require_once "../config.php";
+require_once '../../middleware/authMiddleware.php';
+
+// check auth
+$userData = authenticateRequest();
 
 // Handle preflight (OPTIONS request)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
