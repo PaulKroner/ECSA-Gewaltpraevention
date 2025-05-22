@@ -20,31 +20,27 @@ export const handleRegistration = async (event, formData, toast, setLoading, nav
       },
     });
 
-    if (response.status === 200) {
+    if (response.data.success) {
       toast({
         description: "Registrierung war erfolgreich!",
       });
       navigate("/dashboard");
-    } else {
-      toast({
-        variant: "destructive",
-        description: "Registrierung fehlgeschlagen: " + response.data.message,
-      });
     }
   } catch (error) {
-
     if (error.response) {
       toast({
         variant: "destructive",
         description: "Registrierung fehlgeschlagen: " + error.response?.data.message,
       });
+    } else {
+      toast({
+        variant: "destructive",
+        description: "Ein anderer Fehler ist aufgetreten: das Backend ist nicht verfügbar.",
+      });
     }
-    toast({
-      variant: "destructive",
-      description: "Ein anderer Fehler ist aufgetreten: das Backend ist nicht verfügbar.",
-    });
+  } finally {
+    setLoading(false); // Hide loading spinner
   }
-  setLoading(false);
 };
 
 export const handleResetPassword = async (event, checkAccordance, token, password, toast, navigate, setLoading, honeypot) => {

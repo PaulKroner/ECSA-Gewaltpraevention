@@ -2,6 +2,8 @@
 require_once "../config.php";
 require_once '../../middleware/authMiddleware.php';
 
+header('Content-Type: application/json');
+
 // check auth
 $userData = authenticateRequest();
 
@@ -44,9 +46,10 @@ try {
     $stmt->execute([":email" => $email]);
 
     if ($stmt->fetch()) {
-        echo json_encode(["success" => false, "message" => "Diese E-Mail-Adresse ist bereits registriert."]);
-        exit;
-    }
+      http_response_code(400); // <<< HTTP-Status setzen
+      echo json_encode(["success" => false, "message" => "Diese E-Mail-Adresse ist bereits registriert."]);
+      exit;
+  }
 
     // hash passwort
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
