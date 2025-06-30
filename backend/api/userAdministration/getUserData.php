@@ -13,7 +13,7 @@ if ($userData['role_id'] != 1) {
 }
 
 try {
-  $stmt = $pdo->query("SELECT * FROM gp_users");
+  $stmt = $pdo->query("SELECT id, name, vorname, email, role_id FROM gp_users");
   $rows = $stmt->fetchAll();
 
   echo json_encode($rows, JSON_PRETTY_PRINT);
