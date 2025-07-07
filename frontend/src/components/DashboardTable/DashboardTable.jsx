@@ -54,9 +54,7 @@ const DashboardTable = ({ data, setData, loading, showNachweise, searchQuery, ro
     const otherFieldsMatch = (
       row.email?.toLowerCase().includes(query) ||
       row.postadresse?.toLowerCase().includes(query) ||
-      row.fz_kontrolliert?.toLowerCase().includes(query) ||
-      row.gs_kontrolliert?.toLowerCase().includes(query) ||
-      row.us_kontrolliert?.toLowerCase().includes(query)
+      row.fz_kontrolliert?.toLowerCase().includes(query)
     );
 
     // Return true if either the name/vorname match or any of the other fields match
